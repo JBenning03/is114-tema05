@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Søknad{% endblock %}
+
+{% block content %}
+<h1>Søknad om Barnehageplass</h1>
+<form method="POST" action="/behandle"> 
+    <!-- Foresatt 1 -->
+    <h3>Foresatt 1</h3>
+    <label for="navn_forelder_1">Navn:</label> 
+    <input type="text" id="navn_forelder_1" name="navn_forelder_1" required /><br>
+    
+    <label for="adresse_forelder_1">Adresse:</label>
+    <input type="text" id="adresse_forelder_1" name="adresse_forelder_1" required /><br>
+
+    <label for="tlf_nr_forelder_1">Telefonnummer:</label> 
+    <input type="tel" id="tlf_nr_forelder_1" name="tlf_nr_forelder_1" required /><br>
+
+    <label for="personnummer_forelder_1">Personnummer:</label>
+    <input type="text" id="personnummer_forelder_1" name="personnummer_forelder_1" required /><br>
+
+    <!-- Foresatt 2 -->
+    <h3>Foresatt 2</h3>
+    <label for="navn_forelder_2">Navn:</label>
+    <input type="text" id="navn_forelder_2" name="navn_forelder_2" /><br>
+    
+    <label for="adresse_forelder_2">Adresse:</label> 
+    <input type="text" id="adresse_forelder_2" name="adresse_forelder_2" /><br>
+
+    <label for="tlf_nr_forelder_2">Telefonnummer:</label> 
+    <input type="tel" id="tlf_nr_forelder_2" name="tlf_nr_forelder_2" /><br>
+
+    <label for="personnummer_forelder_2">Personnummer:</label> 
+    <input type="text" id="personnummer_forelder_2" name="personnummer_forelder_2" /><br>
+
+    <!-- Barn -->
+    <h3>Barn</h3>
+    <label for="personnummer_barnet_1">Personnummer - Barn 1:</label>
+    <input type="text" id="personnummer_barnet_1" name="personnummer_barnet_1" required /><br>
+
+    <!-- Fortrinnsrett -->
+    <h3>Fortrinnsrett</h3>
+    <label for="fortrinnsrett_barnevern">Barnevern:</label>
+    <input type="checkbox" id="fortrinnsrett_barnevern" name="fortrinnsrett_barnevern" /><br>
+    
+    <label for="fortrinnsrett_sykdom_i_familien">Sykdom i Familien:</label>
+    <input type="checkbox" id="fortrinnsrett_sykdom_i_familien" name="fortrinnsrett_sykdom_i_familien" /><br>
+
+    <label for="fortrinnsrett_sykdome_paa_barnet">Sykdom på Barnet:</label>
+    <input type="checkbox" id="fortrinnsrett_sykdome_paa_barnet" name="fortrinnsrett_sykdome_paa_barnet" /><br>
+
+    <label for="fortrinssrett_annet">Annet:</label>
+    <input type="text" id="fortrinssrett_annet" name="fortrinssrett_annet" /><br>
+
+    <!-- Barnehagevalg -->
+    <h3>Barnehagevalg</h3>
+    <label for="liste_over_barnehager_prioritert_5">Velg Barnehage (Prioritert):</label>
+    <select id="liste_over_barnehager_prioritert_5" name="liste_over_barnehager_prioritert_5" required>
+        {% for barnehage in barnehager %}
+            <option value="{{ barnehage.barnehage_id }}">{{ barnehage.barnehage_navn }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label for="tidspunkt_for_oppstart">Tidspunkt for Oppstart:</label>
+    <input type="date" id="tidspunkt_for_oppstart" name="tidspunkt_for_oppstart" required /><br>
+
+    <label for="har_sosken_som_gaar_i_barnehagen">Har Søsken som Går i Barnehagen:</label> 
+    <input type="checkbox" id="har_sosken_som_gaar_i_barnehagen" name="har_sosken_som_gaar_i_barnehagen" /><br>
+
+    <label for="brutto_inntekt_husholdning">Brutto Inntekt Husholdning:</label>
+    <input type="number" id="brutto_inntekt_husholdning" name="brutto_inntekt_husholdning" required /><br><br>
+
+    <input type="submit" value="Send søknad"> 
+</form>
+{% endblock %}
+

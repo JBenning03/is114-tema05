@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Søknadsstatus{% endblock %}
+
+{% block content %}
+<h1>Søknadsstatus</h1>
+<p>Ditt søknadsresultat: <strong>{{ status }}</strong></p>
+
+{% if status == 'TILBUD' %}
+    <p>Gratulerer! Du har fått tilbud om plass.</p>
+{% elif status == 'AVSLAG' %}
+    <p>Beklager, det er ikke ledige plasser eller du oppfyller ikke kriteriene for fortrinnsrett.</p>
+{% else %}
+    <p>{{ status }}</p>
+{% endif %}
+{% endblock %}

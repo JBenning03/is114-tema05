@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Data Lagret{% endblock %}
+
+{% block content %}
+<h1>Data Lagret</h1>
+<p>Alle endringene er skrevet til kgdata.xlsx!</p>
+
+<h2>Barnehager:</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Navn</th>
+        <th>Antall Plasser</th>
+        <th>Ledige Plasser</th>
+    </tr>
+    {% for barnehage in barnehager %}
+    <tr>
+        <td>{{ barnehage.barnehage_id }}</td>
+        <td>{{ barnehage.barnehage_navn }}</td>
+        <td>{{ barnehage.barnehage_antall_plasser }}</td>
+        <td>{{ barnehage.barnehage_ledige_plasser }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Foresatte:</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Navn</th>
+        <th>Adresse</th>
+        <th>Telefonnummer</th>
+        <th>Personnummer</th>
+    </tr>
+    {% for foresatt in foresatte %}
+    <tr>
+        <td>{{ foresatt.foresatt_id }}</td>
+        <td>{{ foresatt.foresatt_navn }}</td>
+        <td>{{ foresatt.foresatt_adresse }}</td>
+        <td>{{ foresatt.foresatt_tlfnr }}</td>
+        <td>{{ foresatt.foresatt_pnr }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Barn:</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Personnummer</th>
+    </tr>
+    {% for b in barn %}
+    <tr>
+        <td>{{ b.barn_id }}</td>
+        <td>{{ b.barn_pnr }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Søknader:</h2>
+<table border="1">
+    <tr>
+        <th>Søknads ID</th>
+        <th>Foresatt 1 ID</th>
+        <th>Foresatt 2 ID</th>
+        <th>Barn ID</th>
+        <th>Fortrinnsrett</th>
+        <th>Prioritert Barnehage ID</th>
+        <th>Status</th>
+    </tr>
+    {% for soknad in soknader %}
+    <tr>
+        <td>{{ soknad.sok_id }}</td>
+        <td>{{ soknad.foresatt_1 }}</td>
+        <td>{{ soknad.foresatt_2 }}</td>
+        <td>{{ soknad.barn_1 }}</td>
+        <td>
+            {% set fortrinnsrett = [] %}
+            {% if soknad.fr_barnevern == 'on' %}{% set _ = fortrinnsrett.append('Barnevern') %}{% endif %}
+            {% if soknad.fr_sykd_familie == 'on' %}{% set _ = fortrinnsrett.append('Sykdom i Familien') %}{% endif %}
+            {% if soknad.fr_sykd_barn == 'on' %}{% set _ = fortrinnsrett.append('Sykdom på Barnet') %}{% endif %}
+            {% if soknad.fr_annet %}{% set _ = fortrinnsrett.append('Annet: ' ~ soknad.fr_annet) %}{% endif %}
+            {{ fortrinnsrett | join(', ') }}
+        </td>
+        <td>{{ soknad.barnehager_prioritert }}</td>
+        <td>{{ soknad.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

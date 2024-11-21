@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Alle Søknader{% endblock %}
+
+{% block content %}
+<h1>Alle Søknader</h1>
+<table border="1">
+    <tr>
+        <th>Søknads ID</th>
+        <th>Foresatt 1 ID</th>
+        <th>Foresatt 2 ID</th>
+        <th>Barn ID</th>
+        <th>Fortrinnsrett</th>
+        <th>Prioritert Barnehage ID</th>
+        <th>Status</th>
+        <!-- Legg til andre relevante felt om nødvendig -->
+    </tr>
+    {% for soknad in soknader %}
+    <tr>
+        <td>{{ soknad.sok_id }}</td>
+        <td>{{ soknad.foresatt_1 }}</td>
+        <td>{{ soknad.foresatt_2 }}</td>
+        <td>{{ soknad.barn_1 }}</td>
+        <td>
+            {% set fortrinnsrett = [] %}
+            {% if soknad.fr_barnevern == 'on' %}{% set _ = fortrinnsrett.append('Barnevern') %}{% endif %}
+            {% if soknad.fr_sykd_familie == 'on' %}{% set _ = fortrinnsrett.append('Sykdom i Familien') %}{% endif %}
+            {% if soknad.fr_sykd_barn == 'on' %}{% set _ = fortrinnsrett.append('Sykdom på Barnet') %}{% endif %}
+            {% if soknad.fr_annet %}{% set _ = fortrinnsrett.append('Annet: ' ~ soknad.fr_annet) %}{% endif %}
+            {{ fortrinnsrett | join(', ') }}
+        </td>
+        <td>{{ soknad.barnehager_prioritert }}</td>
+        <td>{{ soknad.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

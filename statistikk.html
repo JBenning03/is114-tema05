@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistikk - {{ kommune }}{% endblock %}
+
+{% block content %}
+<h1>Statistikk for {{ kommune }}</h1>
+{% if feil %}
+    <p>{{ feil }}</p>
+{% elif plot_url %}
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Statistikkgraf">
+{% else %}
+    <p>Ingen data tilgjengelig for {{ kommune }}.</p>
+{% endif %}
+<a href="{{ url_for('index') }}">Tilbake til forsiden</a>
+{% endblock %}

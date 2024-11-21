@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Barnehager{% endblock %}
+
+{% block content %}
+<h1>Liste over Barnehager</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Navn</th>
+        <th>Antall Plasser</th>
+        <th>Ledige Plasser</th>
+    </tr>
+    {% for elt in data %}
+    <tr>
+        <td>{{ elt.barnehage_id }}</td>
+        <td>{{ elt.barnehage_navn }}</td>
+        <td>{{ elt.barnehage_antall_plasser }}</td> 
+        <td>{{ elt.barnehage_ledige_plasser }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
